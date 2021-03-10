@@ -15,15 +15,20 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('ex'),
         ),
-        body: Stack(
+        body: Column(
           children: [
-            ListView.builder(
-              itemBuilder: (context, index) => MessageWidget(index),
-              reverse: true,
+            Flexible(
+              child: ListView.builder(
+                itemBuilder: (context, index) => MessageWidget(index),
+                reverse: true,
+              ),
+              flex: 15,
             ),
-            Center(
+            Flexible(
               child: InputWidgetWidget(),
+              flex: 2,
             ),
+            //Center(child: InputWidgetWidget(),),
           ],
         ),
       ),

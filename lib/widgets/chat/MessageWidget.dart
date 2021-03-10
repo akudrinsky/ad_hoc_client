@@ -15,7 +15,7 @@ class MessageWidget extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('from me ${this.index}'),
+                Text('from me ${this.index}', style: TextStyle(fontSize: 15.0),),
               ],
               mainAxisAlignment: MainAxisAlignment.end,
             ),

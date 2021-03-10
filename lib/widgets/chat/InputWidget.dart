@@ -1,6 +1,5 @@
 import 'package:ad_hoc_client/config/Palette.dart';
 import 'package:flutter/material.dart';
-import 'package:ad_hoc_client/widgets/chat/InputWidget.dart';
 
 class InputWidgetWidget extends StatelessWidget {
   final TextEditingController textEditingController =
@@ -9,7 +8,7 @@ class InputWidgetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.topCenter,
       child: Container(
         child: Row(
           children: [
@@ -40,13 +39,14 @@ class InputWidgetWidget extends StatelessWidget {
           ],
         ),
         width: double.infinity,
-        height: 50.0,
+        //height: 50.0,
         decoration: new BoxDecoration(
           border: new Border(
             top: new BorderSide(color: Palette.secondaryTextColor, width: 0.5),
           ),
           color: Colors.white,
         ),
+        
       ),
     );
   }
