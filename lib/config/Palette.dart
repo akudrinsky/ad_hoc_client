@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  static Color primaryColor = Colors.white;
-  static Color accentColor =  Color(0xff4fc3f7);
-  static Color secondaryColor = Colors.black;
+  static final fromMessageColor = Colors.indigo;
+  static final toMessageColor = Colors.lightGreen;
 
-  static Color gradientStartColor = accentColor;
-  static Color gradientEndColor = Color(0xff6aa8fd);
-  static Color errorGradientStartColor = Color(0xffd50000);
-  static Color errorGradientEndColor = Color(0xff9b0000);
+  static final primaryTextColor = Colors.black54;
+  static final secondaryTextColor = Colors.grey;
 
-  static Color primaryTextColorLight = Colors.white;
-  static Color secondaryTextColorLight = Colors.white70;
-  static Color hintTextColorLight = Colors.white70;
-
-  static Color selfMessageBackgroundColor = Color(0xff4fc3f7);
-  static Color otherMessageBackgroundColor = Colors.white;
-
-  static Color selfMessageColor = Colors.white;
-  static Color otherMessageColor = Color(0xff3f3f3f);
-
-  static Color greyColor = Colors.grey;
+  static final primaryDesignColor = Color(0x02C4EE00);
+  static final secondaryDesignColor = Color(0xEE2D0200);
 }
