@@ -5,6 +5,7 @@ class InputWidgetWidget extends StatelessWidget {
   final TextEditingController textEditingController =
       new TextEditingController();
 
+  // Think about SafeArea
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -46,7 +47,6 @@ class InputWidgetWidget extends StatelessWidget {
           ),
           color: Colors.white,
         ),
-        
       ),
     );
   }

@@ -27,7 +27,7 @@ class MessageWidget extends StatelessWidget {
             ),
           ],
         ),
-        color: Palette.primaryDesignColor,
+        color: Palette.fromMessageColor,
       );
     } else {
       // to me
@@ -48,7 +48,7 @@ class MessageWidget extends StatelessWidget {
             ),
           ],
         ),
-        color: Palette.secondaryDesignColor,
+        color: Palette.toMessageColor,
       );
     }
   }
