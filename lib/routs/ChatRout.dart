@@ -11,7 +11,6 @@ class ChatRout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: OtherPersonBar("${this.id}"),
       body: Column(

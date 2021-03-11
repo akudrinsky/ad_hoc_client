@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:ad_hoc_client/config/Palette.dart';
 import 'package:ad_hoc_client/widgets/contacts/ContactWidget.dart';
+import 'package:ad_hoc_client/internal/DatabaseManager.dart';
 
-class ContactsRout extends StatelessWidget {
+class ContactsRout extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _ContactsRoutState();
+  }
+}
+
+class _ContactsRoutState extends State<ContactsRout> {
+  Future<List<Map<String, dynamic>>> contacts =
+      DatabaseManager().getUserContacts();
+
   @override
   Widget build(BuildContext context) {
+    var contacts = DatabaseManager().getUserContacts();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -16,21 +28,33 @@ class ContactsRout extends StatelessWidget {
         ),
         backgroundColor: Palette.primaryDesignColor,
       ),
-      body: ListView.separated(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        itemCount: 5,
-        separatorBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(
-            left: 75,
-            right: 20,
-          ),
-          child: Divider(
-            color: Palette.smallDetailColor,
-          ),
-        ),
-        itemBuilder: (context, index) {
-          return ContactWidget(index);
+      body: FutureBuilder(
+        future: contacts,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemCount: snapshot.data!.length,
+              separatorBuilder: (context, index) => Padding(
+                padding: EdgeInsets.only(
+                  left: 75,
+                  right: 20,
+                ),
+                child: Divider(
+                  color: Palette.smallDetailColor,
+                ),
+              ),
+              itemBuilder: (context, index) {
+                return ContactWidget(index);
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text("Error");
+          } else {
+            return Text("Waiting");
+          }
         },
       ),
     );

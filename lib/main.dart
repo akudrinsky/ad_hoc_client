@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ad_hoc_client/routs/ContactsRout.dart';
+import 'package:ad_hoc_client/internal/DatabaseManager.dart';
 
-void main() {
-  
+void main() async {
+  await DatabaseManager().openDB();
   runApp(MyApp());
 }
 

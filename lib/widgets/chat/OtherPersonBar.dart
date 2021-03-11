@@ -8,7 +8,6 @@ class OtherPersonBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
       top: true,
       child: ColoredBox(
@@ -33,6 +32,5 @@ class OtherPersonBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(60.0);
 }
