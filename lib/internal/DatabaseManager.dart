@@ -4,6 +4,8 @@ import 'Contact.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sqflite/sqflite.dart';
 
+import 'package:path/path.dart';
+
 class DatabaseManager {
   static final DatabaseManager _instance =
       DatabaseManager._privateConstructor();
@@ -24,8 +26,10 @@ class DatabaseManager {
 
   Future openDB() async {
     if (!_db.isOpen) {
+      var databasesPath = await getDatabasesPath();
+      String path = join(databasesPath!, 'ad_hoc_client.db');
       _db = await openDatabase(
-        'ad_hoc_database.db',
+        path,
         version: 1,
         onCreate: (Database db, int version) async {
           await _db.execute(

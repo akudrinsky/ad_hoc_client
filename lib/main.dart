@@ -3,7 +3,7 @@ import 'package:ad_hoc_client/routs/ContactsRout.dart';
 import 'package:ad_hoc_client/internal/DatabaseManager.dart';
 
 void main() async {
-  await DatabaseManager().openDB().then((value) => runApp(MyApp()));
+  DatabaseManager();
   runApp(MyApp());
 }
 

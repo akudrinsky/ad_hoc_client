@@ -11,52 +11,61 @@ class ContactsRout extends StatefulWidget {
 }
 
 class _ContactsRoutState extends State<ContactsRout> {
-  Future<List<Map<String, dynamic>>> contacts =
-      DatabaseManager().getUserContacts();
-
   @override
   Widget build(BuildContext context) {
-    var contacts = DatabaseManager().getUserContacts();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Contacts',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Palette.primaryDesignColor,
-      ),
-      body: FutureBuilder(
-        future: contacts,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-          if (snapshot.hasData) {
-            return ListView.separated(
-              shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              separatorBuilder: (context, index) => Padding(
-                padding: EdgeInsets.only(
-                  left: 75,
-                  right: 20,
-                ),
-                child: Divider(
-                  color: Palette.smallDetailColor,
+    return FutureBuilder(
+      future: DatabaseManager().openDB(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> dbOpened) {
+        if (dbOpened.hasData) {
+          Future<List<Map<String, dynamic>>> contacts =
+              DatabaseManager().getUserContacts();
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Contacts',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              itemBuilder: (context, index) {
-                return ContactWidget(index);
+              backgroundColor: Palette.primaryDesignColor,
+            ),
+            body: FutureBuilder(
+              future: contacts,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    separatorBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.only(
+                        left: 75,
+                        right: 20,
+                      ),
+                      child: Divider(
+                        color: Palette.smallDetailColor,
+                      ),
+                    ),
+                    itemBuilder: (context, index) {
+                      return ContactWidget(index);
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Text("Error");
+                } else {
+                  return Text("Waiting");
+                }
               },
-            );
-          } else if (snapshot.hasError) {
-            return Text("Error");
-          } else {
-            return Text("Waiting");
-          }
-        },
-      ),
+            ),
+          );
+        } else if (dbOpened.hasError) {
+          return Text("Error loading DB");
+        } else {
+          return Text("Waiting for DB");
+        }
+      },
     );
   }
 }
