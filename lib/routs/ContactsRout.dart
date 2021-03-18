@@ -14,7 +14,7 @@ class _ContactsRoutState extends State<ContactsRout> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DatabaseManager().openDB(),
+      future: DatabaseManager().db,
       builder: (BuildContext context, AsyncSnapshot<dynamic> dbOpened) {
         if (dbOpened.hasData) {
           Future<List<Map<String, dynamic>>> contacts =
@@ -61,6 +61,7 @@ class _ContactsRoutState extends State<ContactsRout> {
             ),
           );
         } else if (dbOpened.hasError) {
+          print(dbOpened.error.toString());
           return Text("Error loading DB");
         } else {
           return Text("Waiting for DB");
