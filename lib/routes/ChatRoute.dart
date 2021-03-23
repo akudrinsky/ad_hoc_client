@@ -1,13 +1,13 @@
-import 'package:ad_hoc_client/routs/ContactsRout.dart';
+import 'package:ad_hoc_client/routes/ContactsRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:ad_hoc_client/widgets/chat/InputWidget.dart';
 import 'package:ad_hoc_client/widgets/chat/MessageWidget.dart';
 import 'package:ad_hoc_client/widgets/chat/OtherPersonBar.dart';
 
-class ChatRout extends StatelessWidget {
+class ChatRoute extends StatelessWidget {
   final int id;
 
-  ChatRout(this.id);
+  ChatRoute(this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ChatRout extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ContactsRout(),
+                      builder: (context) => ContactsRoute(),
                     ),
                   );
                 }

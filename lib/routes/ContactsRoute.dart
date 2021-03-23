@@ -3,14 +3,14 @@ import 'package:ad_hoc_client/config/Palette.dart';
 import 'package:ad_hoc_client/widgets/contacts/ContactWidget.dart';
 import 'package:ad_hoc_client/internal/DatabaseManager.dart';
 
-class ContactsRout extends StatefulWidget {
+class ContactsRoute extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _ContactsRoutState();
+    return _ContactsRouteState();
   }
 }
 
-class _ContactsRoutState extends State<ContactsRout> {
+class _ContactsRouteState extends State<ContactsRoute> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

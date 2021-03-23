@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ad_hoc_client/routs/ChatRout.dart';
+import 'package:ad_hoc_client/routes/ChatRoute.dart';
 
 class ContactWidget extends StatelessWidget {
   final int id;
@@ -16,7 +16,7 @@ class ContactWidget extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChatRout(this.id),
+              builder: (context) => ChatRoute(this.id),
             ),
           );
         },

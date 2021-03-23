@@ -52,29 +52,6 @@ class DatabaseManager {
     return db;
   }
 
-  // Future<bool> openDB() async {
-  //   var databasesPath = await getDatabasesPath();
-  //   String path = join(databasesPath!, 'ad_hoc_client.db');
-  //   print("Opening database");
-  //   _db = await openDatabase(
-  //     path,
-  //     version: 1,
-  //     onCreate: (Database db, int version) async {
-  //       await db.execute(
-  //           'CREATE TABLE Messages (otherHandle TEXT, data TEXT, time TEXT, fromHim TEXT');
-  //       await db.execute(
-  //           'CREATE TABLE Contacts (handle TEXT, sender TEXT, name TEXT)');
-  //       await db.execute(
-  //           'CREATE TABLE Keys (public_key TEXT, private_key TEXT, identity_key TEXT)');
-  //     },
-  //   );
-
-  //   await _db.execute('SELECT * FROM Contacts');
-
-  //   print("Done");
-  //   return true;
-  // }
-
   void newMessage(Message msg) async {
     var database = await db;
 
