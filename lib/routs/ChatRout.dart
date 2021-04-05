@@ -1,3 +1,4 @@
+import 'package:ad_hoc_client/internal/Contact.dart';
 import 'package:ad_hoc_client/routs/ContactsRout.dart';
 import 'package:flutter/material.dart';
 import 'package:ad_hoc_client/widgets/chat/InputWidget.dart';
@@ -5,14 +6,14 @@ import 'package:ad_hoc_client/widgets/chat/MessageWidget.dart';
 import 'package:ad_hoc_client/widgets/chat/OtherPersonBar.dart';
 
 class ChatRout extends StatelessWidget {
-  final int id;
+  final Contact contact;
 
-  ChatRout(this.id);
+  ChatRout(this.contact);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OtherPersonBar("${this.id}"),
+      appBar: OtherPersonBar("${this.contact.name}"),
       body: Column(
         children: [
           Flexible(

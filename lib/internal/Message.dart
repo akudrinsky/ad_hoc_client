@@ -2,7 +2,7 @@ class Message {
   String otherHandle;
   String text;
   DateTime date;
-  bool fromHim;
+  bool isReceived;
 
-  Message(this.otherHandle, this.text, this.date, this.fromHim);
+  Message(this.otherHandle, this.text, this.date, this.isReceived);
 }

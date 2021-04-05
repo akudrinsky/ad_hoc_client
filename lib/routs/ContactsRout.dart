@@ -1,3 +1,4 @@
+import 'package:ad_hoc_client/internal/Contact.dart';
 import 'package:flutter/material.dart';
 import 'package:ad_hoc_client/config/Palette.dart';
 import 'package:ad_hoc_client/widgets/contacts/ContactWidget.dart';
@@ -17,7 +18,7 @@ class _ContactsRoutState extends State<ContactsRout> {
       future: DatabaseManager().db,
       builder: (BuildContext context, AsyncSnapshot<dynamic> dbOpened) {
         if (dbOpened.hasData) {
-          Future<List<Map<String, dynamic>>> contacts =
+          Future<List<Contact>> contacts =
               DatabaseManager().getUserContacts();
           return Scaffold(
             appBar: AppBar(
@@ -33,7 +34,7 @@ class _ContactsRoutState extends State<ContactsRout> {
             body: FutureBuilder(
               future: contacts,
               builder: (BuildContext context,
-                  AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                  AsyncSnapshot<List<Contact>> snapshot) {
                 if (snapshot.hasData) {
                   return ListView.separated(
                     shrinkWrap: true,
@@ -49,11 +50,11 @@ class _ContactsRoutState extends State<ContactsRout> {
                       ),
                     ),
                     itemBuilder: (context, index) {
-                      return ContactWidget(index);
+                      return ContactWidget(snapshot.data![index]);
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return Text("Error");
+                  return Text("Error with contacts rout");
                 } else {
                   return Text("Waiting");
                 }

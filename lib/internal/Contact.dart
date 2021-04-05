@@ -1,7 +1,7 @@
 class Contact {
   String handle;
-  String sender;
+  String publicKey;
   String name;
 
-  Contact(this.handle, this.sender, this.name);
+  Contact(this.handle, this.publicKey, this.name);
 }
