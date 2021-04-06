@@ -57,15 +57,15 @@ class DatabaseManager {
   void newMessage(Message msg) async {
     db.then((value) => value.rawInsert(
         'INSERT INTO Messages VALUES (\'${msg.otherHandle}\', \'${msg.text}\', \'${msg.date.toString()}\', \'${msg.isReceived}\')'));
-    print('message added');
   }
 
   Future<List<Message>> getCorrespondance(Contact contact) async {
     var database = await db;
     var records =
         await database.query('Messages', where: '"handle" = ${contact.handle}');
-    Future<List<Message>> messages = <Message>[] as Future<List<Message>>;
+    var messages = new Future<List<Message>>.value([]);
     for (var i = 0; i < records.length; i++) {
+      print('asd');
       messages.then((value) => value.add(Message(
           records[i]['otherHandle'] as String,
           records[i]['data'] as String,
@@ -78,8 +78,8 @@ class DatabaseManager {
 
   Future<List<Contact>> getUserContacts() async {
     var database = await db;
-    var records = await database.query('Contacts').then((value) => value);
-    Future<List<Contact>> contacts = <Contact>[] as Future<List<Contact>>;
+    var records = await database.query('Contacts');
+    var contacts = new Future<List<Contact>>.value([]);
     for (var i = 0; i < records.length; i++) {
       contacts.then((value) => value.add(Contact(records[i]['handle'] as String,
           records[i]['public_key'] as String, records[i]['name'] as String)));
@@ -91,6 +91,5 @@ class DatabaseManager {
   void newContact(Contact contact) {
     db.then((value) => value.rawInsert(
         'INSERT INTO Contacts VALUES (\'${contact.handle}\', \'${contact.publicKey}\', \'${contact.name}\')'));
-    print('concact added');
   }
 }

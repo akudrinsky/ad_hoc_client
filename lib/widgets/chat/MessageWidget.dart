@@ -1,27 +1,28 @@
+import 'package:ad_hoc_client/internal/Message.dart';
 import 'package:flutter/material.dart';
 import 'package:ad_hoc_client/config/Palette.dart';
 
 class MessageWidget extends StatelessWidget {
-  final int index;
+  final Message msg;
 
-  MessageWidget(this.index);
+  MessageWidget(this.msg);
 
   @override
   Widget build(BuildContext context) {
-    if (this.index % 2 == 0) {
+    if (!msg.isReceived) {
       // from me
       return Container(
         child: Column(
           children: [
             Row(
               children: [
-                Text('from me ${this.index}', style: TextStyle(fontSize: 15.0),),
+                Text('${this.msg.text}', style: TextStyle(fontSize: 15.0),),
               ],
               mainAxisAlignment: MainAxisAlignment.end,
             ),
             Row(
               children: [
-                Text('${DateTime.now().hour}:${DateTime.now().minute}'),
+                Text('${msg.date.hour}:${msg.date.minute}'),
               ],
               mainAxisAlignment: MainAxisAlignment.end,
             ),
@@ -36,13 +37,13 @@ class MessageWidget extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('to me ${this.index}'),
+                Text('${this.msg.text}'),
               ],
               mainAxisAlignment: MainAxisAlignment.start,
             ),
             Row(
               children: [
-                Text('${DateTime.now().hour}:${DateTime.now().minute}'),
+                Text('${msg.date.hour}:${msg.date.minute}'),
               ],
               mainAxisAlignment: MainAxisAlignment.start,
             ),
