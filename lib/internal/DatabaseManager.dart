@@ -24,9 +24,7 @@ class DatabaseManager {
     return _instance;
   }
 
-  DatabaseManager._privateConstructor() {
-    //_checkDB();
-  }
+  DatabaseManager._privateConstructor();
 
   bool isOpen() {
     return _db == null ? false : _db!.isOpen;
@@ -37,7 +35,6 @@ class DatabaseManager {
     String path = join(databasesPath!, 'ad_hoc_client.db');
     await ((await openDatabase(path)).close());
     await deleteDatabase(path);
-    print("Opening database");
     var db = await openDatabase(
       path,
       version: 1,
@@ -55,22 +52,32 @@ class DatabaseManager {
   }
 
   void newMessage(Message msg) async {
-    db.then((value) => value.rawInsert(
-        'INSERT INTO Messages VALUES (\'${msg.otherHandle}\', \'${msg.text}\', \'${msg.date.toString()}\', \'${msg.isReceived}\')'));
+    db.then(
+      (value) async {
+        await value.rawInsert(
+            'INSERT INTO Messages VALUES (\'${msg.otherHandle}\', \'${msg.text}\', \'${msg.date.toString()}\', \'${msg.isReceived}\')');
+      },
+    );
   }
 
   Future<List<Message>> getCorrespondance(Contact contact) async {
     var database = await db;
-    var records =
-        await database.query('Messages', where: '"handle" = ${contact.handle}');
+    var records = await database.rawQuery('SELECT * FROM Messages WHERE \'handle\'=\'${contact.handle}\'');
+
+    print(records.length);
+
     var messages = new Future<List<Message>>.value([]);
     for (var i = 0; i < records.length; i++) {
-      print('asd');
-      messages.then((value) => value.add(Message(
-          records[i]['otherHandle'] as String,
-          records[i]['data'] as String,
-          records[i]['time'] as DateTime,
-          records[i]['isReceived'] as bool)));
+      messages.then((value) {
+        value.add(
+          Message(
+            records[i]['otherHandle'] as String,
+            records[i]['data'] as String,
+            DateTime.parse(records[i]['time'] as String),
+            records[i]['isReceived'] as String == 'true',
+          ),
+        );
+      });
     }
 
     return messages;
@@ -81,15 +88,24 @@ class DatabaseManager {
     var records = await database.query('Contacts');
     var contacts = new Future<List<Contact>>.value([]);
     for (var i = 0; i < records.length; i++) {
-      contacts.then((value) => value.add(Contact(records[i]['handle'] as String,
-          records[i]['public_key'] as String, records[i]['name'] as String)));
+      contacts.then(
+        (value) => value.add(
+          Contact(
+            records[i]['handle'] as String,
+            records[i]['public_key'] as String,
+            records[i]['name'] as String,
+          ),
+        ),
+      );
     }
 
     return contacts;
   }
 
   void newContact(Contact contact) {
-    db.then((value) => value.rawInsert(
-        'INSERT INTO Contacts VALUES (\'${contact.handle}\', \'${contact.publicKey}\', \'${contact.name}\')'));
+    db.then(
+      (value) => value.rawInsert(
+          'INSERT INTO Contacts VALUES (\'${contact.handle}\', \'${contact.publicKey}\', \'${contact.name}\')'),
+    );
   }
 }

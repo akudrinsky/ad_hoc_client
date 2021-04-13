@@ -26,7 +26,10 @@ class ChatRout extends StatelessWidget {
                 if (msgSnap.hasData) {
                   return GestureDetector(
                     child: ListView.builder(
-                      itemBuilder: (context, index) => MessageWidget(msgSnap.data![index]),
+                      itemCount: msgSnap.data!.length,
+                      itemBuilder: (context, index) {
+                        return MessageWidget(msgSnap.data![index]);
+                      },
                       reverse: true,
                     ),
                     onPanUpdate: (details) {
@@ -41,6 +44,7 @@ class ChatRout extends StatelessWidget {
                     },
                   );
                 } else if (msgSnap.hasError) {
+                  print(msgSnap.error.toString());
                   return Text("Error with messages");
                 } else {
                   return Text("Waiting for messages");

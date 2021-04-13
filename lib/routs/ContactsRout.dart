@@ -54,6 +54,7 @@ class _ContactsRoutState extends State<ContactsRout> {
                     },
                   );
                 } else if (snapshot.hasError) {
+                  print(snapshot.error.toString());
                   return Text("Error with contacts rout");
                 } else {
                   return Text("Waiting");

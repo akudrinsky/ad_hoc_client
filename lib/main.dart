@@ -7,8 +7,16 @@ import 'package:ad_hoc_client/internal/DatabaseManager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DatabaseManager().initDB();
-  DatabaseManager().newContact(Contact('c033ee', '123', 'volkov'));
-  DatabaseManager().newMessage(Message('c033ee', 'hello!', DateTime.now(), true));
+  DatabaseManager().newContact(
+    Contact('c033ee', '1', 'volkov'),
+  );
+  DatabaseManager().newContact(
+    Contact('banana', '2', 'bananastas'),
+  );
+  DatabaseManager()
+      .newMessage(Message('c033ee', 'hello!', DateTime.now(), true));
+  DatabaseManager()
+      .newMessage(Message('c033ee', 'hello!', DateTime.now(), false));
   runApp(MyApp());
 }
 
